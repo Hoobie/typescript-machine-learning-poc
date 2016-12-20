@@ -4,6 +4,7 @@ import * as MlKnn from 'ml-knn';
 import * as KNear from 'knear';
 import * as RF from 'random-forest-classifier';
 import * as MlNaiveBayes from 'ml-naivebayes';
+import * as QLearning from 'q-exp';
 
 var data = JSON.parse(document.getElementById('data').textContent);
 
@@ -11,6 +12,7 @@ testMlKnn();
 testKNear();
 testRandomForestClassifier();
 testMlNaiveBayes();
+testQLearning();
 
 function testMlKnn() {
     let knn = new MlKnn();
@@ -78,4 +80,23 @@ function testMlNaiveBayes() {
 
     console.log('ml-naivebayes predictions: ', predictions);
     console.log('equal to test predictions? ', JSON.stringify(predictions) === JSON.stringify(data.testPredictions));
+}
+
+function testQLearning() {
+    let ql = QLearning;
+
+    var agent = ql
+        .newAgent('johndoe', ['walk', 'run', 'sleep'], 0.35)
+        .then(ql.bindRewardMeasure(state => 10))
+        .then(ql.bindActionCostMeasure((state, action) => 10))
+        .then(ql.bindStateGenerator((state, action) => 'walk'));
+        //.then(ql.load('???'));
+
+    // Start!
+    agent.then(ql.setState('walk')) // Let the agent know the state
+        .then(ql.step) // Ask the agent to move
+        .then(ql.getState) // Now let's see how the agent moved
+        .then((state) => console.log(state));
+
+   console.log(agent);
 }

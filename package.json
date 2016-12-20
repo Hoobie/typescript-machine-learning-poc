@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "browserify index.ts -p [ tsify --project tsconfig.json ] > bundle.js"
   },
   "author": "Hubert Slojewski",
   "license": "ISC",
@@ -12,13 +12,12 @@
     "knear": "0.0.5",
     "ml-knn": "^1.0.0",
     "ml-naivebayes": "^1.0.3",
+    "q-exp": "0.0.3",
     "random-forest-classifier": "^0.6.0"
-  }, "devDependencies": {
+  },
+  "devDependencies": {
     "typescript": "latest",
     "browserify": "latest",
     "tsify": "latest"
-  },
-  "scripts": {
-    "build": "browserify index.ts -p [ tsify --project tsconfig.json ] > bundle.js"
   }
 }
